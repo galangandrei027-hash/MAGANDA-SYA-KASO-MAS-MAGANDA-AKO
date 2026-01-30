@@ -1,0 +1,268 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html>
+<head>
+<title> Web Layout </title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+    background-color: #1e40af;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+/* Top Navigation */
+ul.nav {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #1e3a8a;
+}
+
+ul.nav li {
+    position: relative;
+}
+
+ul.nav li a {
+    display: block;
+    color: #dbeafe;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.nav li a:hover {
+    background-color: #3b82f6;
+    color: black;
+}
+
+/* Dropdown */
+ul.dropdown {
+    display: none;
+    position: absolute;
+    background-color: #1e3a8a;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    min-width: 180px;
+}
+
+ul.nav li:hover ul.dropdown {
+    display: block;
+}
+
+ul.dropdown li a {
+    padding: 12px 16px;
+}
+
+/* Container */
+.container {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 30%;
+    background: #bfdbfe;
+    padding: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #1e3a8a;
+    background-color: #dbeafe;
+    margin-bottom: 5px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #93c5fd;
+}
+
+.sidebar ul li a.active {
+    background-color: #1e40af;
+    color: white;
+}
+
+/* Article */
+article {
+    padding: 20px;
+    width: 70%;
+    background-color: #eff6ff;
+    min-height: 300px;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+/* Footer */
+footer {
+    background-color: #1e40af;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2> SDIHS </h2>
+    <h3 style="font-size: 18px;"> Santo Domingo Integrated High School </h3>
+</header>
+
+<!-- TOP NAVIGATION -->
+<ul class="nav">
+    <li>
+        <a href="#">Home</a>
+        <ul class="dropdown">
+            <li><a href="#" onclick="showHome()">Home</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <a href="#">Grading</a>
+        <ul class="dropdown">
+            <li><a href="#" onclick="showGrading('first')">First Grading</a></li>
+            <li><a href="#" onclick="showGrading('second')">Second Grading</a></li>
+            <li><a href="#" onclick="showGrading('third')">Third Grading</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <a href="#">About</a>
+        <ul class="dropdown">
+            <li><a href="#" onclick="showAbout()">About School</a></li>
+            <li><a href="#" onclick="showApplication()">Application</a></li>
+        </ul>
+    </li>
+</ul>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+    <ul>
+        <li><a href="#" onclick="loadContent('home', this)">School Profile</a></li>
+        <li><a href="#" onclick="loadContent('shs', this)">SHS</a></li>
+        <li><a href="#" onclick="loadContent('jhs', this)">JHS</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<article id="content">
+    <h1> Welcome </h1>
+    <p>
+        Santo Domingo Integrated High School was founded in 1971. <br>
+        It is located at Barangay Santo Domingo, City of Santa Rosa, Laguna.
+    </p>
+</article>
+
+</div>
+
+<footer>
+    <p> © 2025 SDIHS </p>
+</footer>
+
+<script>
+function showHome() {
+    sidebar.style.display = "block";
+    content.classList.remove("full-width");
+    loadContent("home");
+}
+
+function showGrading(type) {
+    sidebar.style.display = "none";
+    content.classList.add("full-width");
+
+    content.innerHTML = `<h2>${type.charAt(0).toUpperCase()+type.slice(1)} Grading</h2>
+    <p>Content for ${type} grading.</p>`;
+}
+
+function showAbout() {
+    sidebar.style.display = "none";
+    content.classList.add("full-width");
+
+    content.innerHTML = `
+    <h2>About SDIHS</h2>
+    <p>Santo Domingo Integrated High School is committed to quality education and innovation.</p>
+    `;
+}
+
+function showApplication() {
+    sidebar.style.display = "none";
+    content.classList.add("full-width");
+
+    content.innerHTML = `
+    <h2>KizunaNet</h2>
+
+    <p>
+        <strong>KizunaNet</strong> is an application designed to strengthen communication and connection
+        within the school community. It allows information sharing, collaboration,
+        and digital interaction among students and staff.
+    </p>
+
+    <p>
+        The application is available as both a downloadable program and a web-based system.
+    </p>
+
+    <p>
+        <strong>Download:</strong>
+        <a href="https://www.mediafire.com/file/tb66t3p2v4hqeso/KizunaNet_2.0.zip/file" target="_blank">
+            KizunaNet Application
+        </a>
+    </p>
+
+    <p>
+        <strong>Web Version:</strong>
+        <a href="https://0d69d54c-8a54-47f5-9585-f972bf7beed7-00-2eiuo16i9qvy.riker.replit.dev" target="_blank">
+            Open Web Application
+        </a>
+    </p>
+    `;
+}
+
+function loadContent(section, el) {
+    document.querySelectorAll(".sidebar a").forEach(a => a.classList.remove("active"));
+    if (el) el.classList.add("active");
+
+    if (section === "home") {
+        content.innerHTML = `
+        <h2>School Profile</h2>
+        <p>Mission, Vision, and Core Values of SDIHS.</p>`;
+    }
+
+    if (section === "shs") {
+        content.innerHTML = `
+        <h2>SHS</h2>
+        <p>HUMSS, ICT, and EPAS strands offered.</p>`;
+    }
+
+    if (section === "jhs") {
+        content.innerHTML = `
+        <h2>JHS</h2>
+        <p>Grades 7 to 10 foundational education.</p>`;
+    }
+}
+
+const sidebar = document.getElementById("sidebar");
+const content = document.getElementById("content");
+</script>
+
+</body>
+</html>
